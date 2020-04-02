@@ -1,0 +1,56 @@
+<table  style="border-color: blue">
+  <tr>
+    <td class = half-col>
+      <div class="container">
+        <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-control">
+            <label>Номер заявки:</label>
+            <input type="text" maxlength="9" placeholder="Введите номер" formControlName="appli">
+            <div
+              *ngIf="form.get('appli').invalid && form.get('appli').touched"
+              class="validation"
+            >
+              <small *ngIf="form.get('appli').errors.required">
+                Номер заявки не может быть пустым
+              </small>
+
+              <small *ngIf="form.get('appli').errors.minlength">
+                Длинна должна быть  {{form.get('appli').errors.minlength.requiredLength}}
+              </small>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label>Тип документа:</label>
+
+            <select formControlName="doctype">
+              <option value="pat">Заявка на патент</option>
+              <option value="form">Формула изобретения</option>
+              <option value="fee">Пошлина</option>
+            </select>
+          </div>
+
+          <button class="btn"  [disabled]="(form.invalid) || (file.length<1)" type="submit">Отправить</button>
+        </form>
+        <small>{{message}}</small>
+      </div>
+
+    </td>
+    <td class = half-col >
+      <small *ngIf="mimeTypeError" class="validation">
+        Файл должен быть типа pdf!
+      </small>
+
+      <div *ngIf="file.length>0; else uploadBlock">
+        <ngx-extended-pdf-viewer [base64Src]="file"    [ignoreKeyboard]="true"  useBrowserLocale="true" height="200vh"></ngx-extended-pdf-viewer>
+      </div>
+      <ng-template #uploadBlock>
+        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+          <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+        </div>
+      </ng-template>
+    </td>
+
+  </tr>
+
+</table>
