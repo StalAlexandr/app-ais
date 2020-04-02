@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {toBase64String} from '@angular/compiler/src/output/source_map';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app-ais';
+
+
 }

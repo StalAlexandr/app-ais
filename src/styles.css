@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+  background: cadetblue;
+  color: #fff;
+}
+
+ul {
+  display: flex;
+  margin: 1px 1px 1px 1px;
+  padding: 1px;
+  list-style-type: none;
+}
+
+li {
+  position: relative;
+  padding-left: 10px;
+}
+
+li.active a {
+  font-weight: bold;
+  color: #9ecbec;
+}
