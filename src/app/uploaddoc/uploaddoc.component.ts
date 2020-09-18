@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-uploaddoc',
@@ -8,14 +10,19 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class UploaddocComponent implements OnInit {
 
+ private baseUrl = 'http://localhost:8888';
+
+  constructor(private http: HttpClient) { }
+
   form: FormGroup;
   file = '';
   mimeTypeError =  false;
   message = '';
 
-  constructor() { }
+
 
   ngOnInit(): void {
+  console.log('init');
     this.form = this.form = new FormGroup({
       appli: new FormControl('', [
         Validators.minLength(9),
@@ -28,6 +35,8 @@ export class UploaddocComponent implements OnInit {
     //  console.log('File', event);
     const f: File = event[0]
     console.log('File', f);
+
+
 
     const myReader: FileReader = new FileReader();
     myReader.onload = (e) => {
@@ -43,7 +52,48 @@ export class UploaddocComponent implements OnInit {
       console.log('header', header);
     }
     myReader.readAsDataURL(f);
+
+ const formData: FormData = new FormData();
+
+
+ const body = {};
+
+ //   formData.append('file', this.file);
+/*
+    const req = new HttpRequest('POST', `http://localhost:8888/uploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+
+ const  o:Observable<any>  = this.http.request(req);
+*/
+
+const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', body);
+
+ o.subscribe(
+                     data => console.log(data),
+                     error => console.log(error)
+               );
+
+
+//      const req2 = new HttpRequest('GET', `${this.baseUrl}/upload`);
+//    console.log('get!!!');
+
+//const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
+
+  //  console.log('o ' + o);
+/*
+o.subscribe(
+                    data => console.log(data),
+                    error => console.log(error)
+              );
+
+  */
+   return  ""
+
   }
+
   submit() {
 
     if (this.form.valid) {

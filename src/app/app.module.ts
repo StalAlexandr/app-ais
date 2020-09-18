@@ -8,6 +8,7 @@ import { UploaddocComponent } from './uploaddoc/uploaddoc.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DragDropDirective} from './drug-drop.directive';
 import { AboutComponent } from './about/about.component';
+import { HttpClientModule }   from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AboutComponent } from './about/about.component';
     AppRoutingModule,
     ReactiveFormsModule,
     NgxExtendedPdfViewerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
