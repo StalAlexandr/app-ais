@@ -56,9 +56,9 @@ export class UploaddocComponent implements OnInit {
  const formData: FormData = new FormData();
 
 
- const body = {};
 
- //   formData.append('file', this.file);
+
+    formData.append('file', f, 'ddddd');
 /*
     const req = new HttpRequest('POST', `http://localhost:8888/uploadFile`, formData, {
       reportProgress: true,
@@ -69,27 +69,40 @@ export class UploaddocComponent implements OnInit {
  const  o:Observable<any>  = this.http.request(req);
 */
 
-const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', body);
-
+/*
  o.subscribe(
                      data => console.log(data),
                      error => console.log(error)
                );
 
-
-//      const req2 = new HttpRequest('GET', `${this.baseUrl}/upload`);
+*/
+//     const req2 = new HttpRequest('GET', `${this.baseUrl}/upload`);
 //    console.log('get!!!');
 
-//const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
+// const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
 
   //  console.log('o ' + o);
-/*
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Methods':'POST',
+    'Access-Control-Allow-Headers':'Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+
+  })
+};
+
+   const body = {};
+ const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', formData, httpOptions);
+// const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
+
 o.subscribe(
                     data => console.log(data),
                     error => console.log(error)
               );
 
-  */
+
    return  ""
 
   }
