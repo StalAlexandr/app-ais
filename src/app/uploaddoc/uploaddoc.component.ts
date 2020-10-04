@@ -76,7 +76,7 @@ console.log(e);
 
 
    const body = {};
- const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', formData,{headers,   responseType: "blob"} );
+ const  o:Observable<any> = this.http.post('http://localhost:8888/document', formData,{headers,   responseType: "blob"} );
 
 
 o.subscribe(
