@@ -2,37 +2,26 @@
   <tr>
     <td class = half-col>
       <div class="container">
-        <form class="card" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-control">
             <label>Номер заявки:</label>
-            <input type="text" maxlength="9" placeholder="Введите номер" formControlName="appli">
-            <div
-              *ngIf="form.get('appli').invalid && form.get('appli').touched"
-              class="validation"
-            >
-              <small *ngIf="form.get('appli').errors.required">
-                Номер заявки не может быть пустым
-              </small>
-
-              <small *ngIf="form.get('appli').errors.minlength">
-                Длинна должна быть  {{form.get('appli').errors.minlength.requiredLength}}
-              </small>
+            <input type="text" maxlength="9" [value]="extidappli">
             </div>
-          </div>
+      </div>
 
-          <div class="form-control">
-            <label>Тип документа:</label>
 
-            <select formControlName="doctype">
-              <option value="pat">Заявка на патент</option>
-              <option value="form">Формула изобретения</option>
-              <option value="fee">Пошлина</option>
-            </select>
-          </div>
+      <div class="container">
+        <div class="form-control">
+          <label>odcorresp:</label>
+          <input type="text" maxlength="3"  [value]="odcorresp" >
+        </div>
+      </div>
 
-          <button class="btn"  [disabled]="(form.invalid) || (file.length<1)" type="submit">Отправить</button>
-        </form>
-        <small>{{message}}</small>
+
+      <div class="container">
+        <div class="form-control">
+          <label>Юзер:</label>
+          <input type="text" maxlength="3"  [value]="user" >
+        </div>
       </div>
 
     </td>

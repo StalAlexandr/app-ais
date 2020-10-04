@@ -30,12 +30,9 @@
                 "glob": "**/*.md",
                 "input": "src/app/",
                 "output": "/assets"
-              }],
-            "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              }
             ],
+            "aot": true,
             "styles": [
               "src/styles.css"
             ],
@@ -132,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "app-ais"
+    }
+  },
+  "defaultProject": "app-ais",
+  "cli": {
+    "analytics": false
+  }
 }

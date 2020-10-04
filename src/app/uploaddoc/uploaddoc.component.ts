@@ -18,18 +18,14 @@ export class UploaddocComponent implements OnInit {
   file = '';
   mimeTypeError =  false;
   message = '';
+  extidappli = '200800011';
+  odcorresp : any =1;
+  user='Козьма Прутков'
 
 
 
   ngOnInit(): void {
   console.log('init');
-    this.form = this.form = new FormGroup({
-      appli: new FormControl('', [
-        Validators.minLength(9),
-        Validators.required
-      ]),
-      doctype: new FormControl('pat')
-    });
   }
   uploadFile(event: any) {
     //  console.log('File', event);
@@ -41,10 +37,15 @@ export class UploaddocComponent implements OnInit {
     const myReader: FileReader = new FileReader();
     myReader.onload = (e) => {
 
+console.log(e);
+
       const dataurl = e.target.result as string;
       const header  = dataurl.substr(0, dataurl.indexOf(';'))
       if (header === 'data:application/pdf') {
         this.mimeTypeError = false;
+
+        console.log('this.mimeTypeError ' + this.mimeTypeError);
+           console.log('this.file ' + this.file);
         this.file = dataurl.substr(dataurl.indexOf(',') + 1);
       } else {
         this.mimeTypeError = true;
@@ -58,48 +59,39 @@ export class UploaddocComponent implements OnInit {
 
 
 
-    formData.append('file', f, 'ddddd');
-/*
-    const req = new HttpRequest('POST', `http://localhost:8888/uploadFile`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
+    formData.append('file', f, 'file.pdf');
+    formData.append('idappli', this.extidappli);
+    formData.append('odcorresp', this.odcorresp);
+    formData.append('signer', this.user);
 
 
- const  o:Observable<any>  = this.http.request(req);
-*/
-
-/*
- o.subscribe(
-                     data => console.log(data),
-                     error => console.log(error)
-               );
-
-*/
-//     const req2 = new HttpRequest('GET', `${this.baseUrl}/upload`);
-//    console.log('get!!!');
-
-// const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
-
-  //  console.log('o ' + o);
 
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Access-Control-Allow-Origin':'*',
-    'Access-Control-Allow-Methods':'POST',
-    'Access-Control-Allow-Headers':'Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
 
-  })
-};
+ const headers = new HttpHeaders().append("Access-Control-Allow-Origin", "*")
+      .append("Access-Control-Allow-Origin", "*")
+      .append("Access-Control-Allow-Methods", "POST")
+      .append("Access-Control-Allow-Headers", "Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+
+
 
    const body = {};
- const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', formData, httpOptions);
-// const  o:Observable<any> = this.http.get('http://localhost:8888/upload', {responseType: 'text'});
+ const  o:Observable<any> = this.http.post('http://localhost:8888/uploadFile', formData,{headers,   responseType: "blob"} );
+
 
 o.subscribe(
-                    data => console.log(data),
-                    error => console.log(error)
+                    blob =>  {
+                    console.log('DATA!'); console.log(blob);
+
+                    blob.lastModifiedDate = new Date();
+                    blob.name = 'signed.pdf';
+
+
+
+                    myReader.readAsDataURL(<File>blob);
+
+                    },
+                    error => {console.log('ERROR!'); console.log(error)}
               );
 
 
