@@ -52,7 +52,7 @@ console.log(e);
       }
       console.log('header', header);
     }
-    myReader.readAsDataURL(f);
+ //   myReader.readAsDataURL(f);
 
  const formData: FormData = new FormData();
 
